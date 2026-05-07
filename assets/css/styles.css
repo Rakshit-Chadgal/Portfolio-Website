@@ -524,7 +524,7 @@ img {
 
 .projects__button{
   display: grid;
-  place-items: centre;
+  place-items: center;
   width: 49px;
   height: 48px;
   background-color: var(--body-color);

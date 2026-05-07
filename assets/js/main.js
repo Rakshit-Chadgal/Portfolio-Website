@@ -54,7 +54,7 @@ tabs.forEach((tab) => {
           targetContent = document.querySelector(targetSelector)
 
     // Disable all content and active
-    tabContents.forEach((Content) => content.classList.remove('work-active'))
+    tabContents.forEach((content) => content.classList.remove('work-active'))
     tabs.forEach((t) => t.classList.remove('work-active'))
 
     // Active the tab and corresponding content
@@ -107,7 +107,7 @@ servicesButtons.forEach((button => {
 /*=============== CUSTOM CURSOR ===============*/
 
 
-/* Hide custom cursor on links */
+/*-- Hide custom cursor on links */
 
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
