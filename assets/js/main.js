@@ -66,7 +66,7 @@ tabs.forEach((tab) => {
 /*=============== SERVICES ACCORDION ===============*/
 const servicesButtons = document.querySelectorAll('.services__button')
 
-servicesButtons.forEach((button => {
+servicesButtons.forEach((button) => {
   const heightInfo = document.querySelector('.services__info')
   heightInfo.style.height = heightInfo.scrollHeight + 'px'
 
@@ -87,7 +87,7 @@ servicesButtons.forEach((button => {
     // Open only if not already open
     if (!isCardOpen){
       currentCard.classList.replace('services-close', 'services-open')
-      currentInfo,style.height = currentInfo.scrollHeight + 'px'
+      currentInfo.style.height = currentInfo.scrollHeight + 'px'
     }
   })
 })
@@ -95,7 +95,7 @@ servicesButtons.forEach((button => {
 /*=============== TESTIMONIALS OF DUPLICATE CARDS ===============*/
 // Duplicate images to make the animation work
 
-const tracks = documents.querySelectorAll('.testimonials__content')
+const tracks = document.querySelectorAll('.testimonials__content')
 
 tracks.forEach(track => {
   const cards = [...track.children] //spread to make a static copy
@@ -107,18 +107,78 @@ tracks.forEach(track => {
 })
 
 /*=============== COPY EMAIL IN CONTACT ===============*/
+const copyBtn = document.getElementById('contact-btn'),
+      copyEmail = document.getElementById('contact-email').textContent
 
+copyBtn.addEventListener('click', () => {
+  // Use the clipboard API to copy text
+  navigator.clipboard.writeText(copyEmail).then(() => {
+    copyBtn.innerHTML = 'Email copied <i class="ri-check-line"></i>'
+
+    //Restore the original text
+    setTimeout(() => {
+      copyBtn.innerHTML = 'Copy email <i class="ri-file-copy-line"></i>'
+    }, 2000)
+  })
+})
 
 /*=============== CURRENT YEAR OF THE FOOTER ===============*/ 
+const textYear = document.getElementById('footer-year')
+      currentYear = new Date().getFullYear()
 
+// Each year it is updated to the current Year
+textYear.textContent = currentYear
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+const sections = document.querySelectorAll('section[id]')
 
+const scrollActive = () => {
+  // We get the position by scrolling down
+  const scrollY = window.scrollY
+
+  sections.forEach(section => {
+    const id = section.id // id of each section
+          top = section.offsetTop - 50, // Distance from the top edge
+          height = section.offsetHeight, // Element Height
+          link = document.querySelector('.nav__menu a[href*=' + id + ']') // id nav link
+    if(!link) return
+
+    link.classList.toggle('active-link', scrollY > top && scrollY <= top + height)
+  })
+}
+window.addEventListener('scroll', scrollActive)
 
 /*=============== CUSTOM CURSOR ===============*/
+const cursor = document.querySelector('.cursor')
+let mouseX = 0, mouseY = 0 // Store mouse position
 
+const cursorMove = () => {
+  // Position the cursor
+  cursor.style.left = `${mouseX}px`
+  cursor.style.top = `${mouseY}px`
+  cursor.style.transform = 'translate(-50%, -50%)'
+
+  // Update the cursor animation
+  requestAnimationFrame(cursorMove)
+}
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX
+  mouseY = e.clientY
+})
+
+cursorMove()
 
 /* Hide custom cursor on links */
+const a = document.querySelectorAll('a')
 
+a.forEach((item) => {
+  item.addEventListener('mouseover', () => {
+    cursor.classList.add('hide-cursor')
+  })
+  item.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hide-cursor')
+  })
+})
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
